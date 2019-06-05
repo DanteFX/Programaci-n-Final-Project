@@ -11,6 +11,10 @@ from fractions import Fraction as fr
 import matplotlib.pyplot as plt
 import math as mathmt
 import tkinter.filedialog as filedialog
+#ELÍAS DÁVILA TORRES
+#05/JUNIO/2019
+#ESTE PROGRAMA HACE CALCULOS DE PRIMERO Y SEGUNDO GRADO, CON PLOTEOS DE RECTA Y CIRCUNFERENCIA, TAMBIÉN DECODIFICA A VARIAS BASES INCLUYENDO LA BASE MAYA CON SUS RESPECTIVOS SIMBOLOS
+#NOTA : SE DEBE DE INCLUIR LA CARPETA "mayas-resize" EN EL ORIGEN DONDE SE GUARDE ESTE PROGRAMA, SE PUEDE DESCARGAR DE GITHUB, O DESCARGAR EL PROYECTO COMPLETO https://github.com/DanteFX/Programming-Final-Project
 ####MAIN CONFIG WINDOW###########################
 ventana = Tk()
 ventana.title('CALCULATOR')
@@ -33,7 +37,7 @@ entrada = 0
 env_user = os.environ["USER"]
 ####DEFINITIIONS#########################################
 
-
+#Esta función evalua la entrada y la decodifica a base binario.
 def BIN():
 	print("BIN MODE")
 	s = str(entry.get())
@@ -48,6 +52,7 @@ def BIN():
 		entrada = int(entrada)
 		decimal = int(entrada)
 		text.insert(END, bin(decimal)+ '\n')
+#Esta función evalua la entrada y la decodifica a base hexadecimal.
 def HEX():
 	print("HEX MODE")
 	s = str(entry.get())
@@ -62,7 +67,7 @@ def HEX():
 		entrada = int(entrada)
 		decimal = int(entrada)
 		text.insert(END, hex(decimal)+ '\n')
-
+#Esta función evalua la entrada y la decodifica a base octal.
 def OCTAL():
 	print("OCTAL MODE")
 	s = str(entry.get())
@@ -77,6 +82,7 @@ def OCTAL():
 		entrada = int(entrada)
 		decimal = int(entrada)
 		text.insert(END, oct(decimal)+ '\n')
+#Esta función decodifica la salida de la operación recibida ara convertirlo a maya.
 def MA():
 	s = str(entry.get())
 	if as_maya in s:
@@ -93,6 +99,7 @@ def MA():
 	newwin = Toplevel(ventana)
 	display = Label(newwin)
 	display.pack()
+	#Esta condición es por si la entrada es menor a 20 entonces se utiliza un solo nivel de altura para la salida en maya.
 	if int(entrada) < 20:
 		# img0 = ImageTk.PhotoImage(Image.open("./mayas-resize/ts.png"))
 		# img1 = ImageTk.PhotoImage(Image.open("./mayas-resize/ts.png"))
@@ -114,6 +121,7 @@ def MA():
 		label2.pack(padx=30, pady=30)
 		label3.pack(padx=30, pady=30)
 		label4.pack(padx=30, pady=30)
+	#Si la entrada es mayor a 20 entonces se decodifica la entrada para usar mas de 1 nivel de altura para los numeros mayas.
 	else:
 		a = entrada / 20
 		a = int(a)
@@ -148,6 +156,8 @@ def MA():
 		label3.pack(padx=30, pady=30)
 		label4.pack(padx=30, pady=30)
 
+
+#Esta función es el botón primario para operaciónes simples y comandos especificos.
 def go():
 	s = str(entry.get())
 	if entry.get() == cl:
@@ -176,32 +186,34 @@ def go():
 								entrada = eval(entry.get())
 								entrada = str(entrada)
 								text.insert(END, entrada + '\n')
-
+#Esta función hace operación de mutliplicación con fracciones
 def fraccionmulti():
     num1 = fr(simpledialog.askstring("FRACCIONES", "Ingresa el primer numero"))
     num2 = fr(simpledialog.askstring("FRACCIONES", "Ingresa el segundo numero"))
     output = num1*num2
 	#messagebox.showinfo("Resultado",(str(output)))
-
+#Esta función hace operación de division con fracciones
 def fracciodivi():
     num1 = fr(simpledialog.askstring("FRACCIONES", "Ingresa el primer numero"))
     num2 = fr(simpledialog.askstring("FRACCIONES", "Ingresa el segundo numero"))
     output = num1/num2
     messagebox.showinfo("Resultado",(str(output)))
 	#text.insert(END, str(output) + '\n')
+#Esta función hace operación de suma con fracciones
 def fraccionsuma():
     num1 = fr(simpledialog.askstring("FRACCIONES", "Ingresa el primer numero"))
     num2 = fr(simpledialog.askstring("FRACCIONES", "Ingresa el segundo numero"))
     output = num1+num2
     messagebox.showinfo("Resultado",(str(output)))
 	#text.insert(END, str(output) + '\n')
+#Esta función hace operación de resta con fracciones
 def fraccionresta():
     num1 = fr(simpledialog.askstring("FRACCIONES", "Ingresa el primer numero"))
     num2 = fr(simpledialog.askstring("FRACCIONES", "Ingresa el segundo numero"))
     output = num1-num2
     messagebox.showinfo("Resultado",(str(output)))
 	#text.insert(END, str(output) + '\n')
-
+#Esta función hace el calculo de una ecuación de primer grado, la entrada con dialogo y salida con caja de información.
 def ecuacion():
     rl = int(simpledialog.askstring("ECUACIONES", "Numero Real:"))
     x = int(simpledialog.askstring("ECUACIONES", "Numero de x:"))
@@ -211,7 +223,7 @@ def ecuacion():
     output= rl, "+",x,"x =",r, "x =", num2
     messagebox.showinfo("Resultado:",(str(output)))
 	#text.insert(END, str(output) +'\n)
-
+#Esta función hace el calculo de una recta con ambos puntos, entrada con dialogo, salida con caja de información y ploteo de la recta con matplot.
 def ecuacionambos():
     y2 = float(simpledialog.askstring("RECTA", "Numero de y2:"))
     y1 = float(simpledialog.askstring("RECTA", "Numero de y1:"))
@@ -230,6 +242,8 @@ def ecuacionambos():
         y.append((m * z) + b)
     plt.scatter(x,y)
     plt.show()
+
+#Esta función hace el calculo de una recta con un punto y la b, entrada con dialogo, salida con caja de información y ploteo de la recta con matplot.
 def pb():
     b = float(simpledialog.askstring("RECTA", "Numero de b:"))
     y = float(simpledialog.askstring("RECTA", "Numero de y:"))
@@ -247,7 +261,7 @@ def pb():
         y.append((m * z) + b)
     plt.scatter(x,y)
     plt.show()
-
+#Esta función hace el calculo de una recta con un punto y la m, entrada con dialogo, salida con caja de información y ploteo de la recta con matplot.
 def pm():
 
     m = float(simpledialog.askstring("RECTA", "Numero de m:"))
@@ -266,6 +280,8 @@ def pm():
         y.append((m * z) + b)
     plt.scatter(x,y)
     plt.show()
+
+#Esta función hace el calculo y plteo de una circunferencia, con entradra de un dialogo y salida de caja de información, y salida de ploteo con la libreia matplot
 def ecuacioncirc():
 
     y2 = float(simpledialog.askstring("CIRCUNFERENCIA", "Y2:"))
@@ -285,7 +301,7 @@ def ecuacioncirc():
     plt.grid()
     plt.show()
 
-
+#Esta función hace el calculo de numeros imaginarios, con entradra de un dialogo y salida de caja de información.
 def numerosimaginarios():
     real = float(simpledialog.askstring("Real", "Numero Real:"))
     imag = float(simpledialog.askstring("Imaginario", "Numero Imaginario:"))
@@ -310,7 +326,7 @@ def numerosimaginarios():
     plt.grid()
     plt.title("Resultado")
     plt.show()
-
+#Esta función hace el calculo de una ecuacion de segundo grado, desplegando ventanas de texto
 def ecuacionsegundogrado():
     a = float(simpledialog.askstring("N.- a", "\n a:"))
     b = float(simpledialog.askstring("N.- b", "\n b:"))
@@ -344,15 +360,15 @@ def ecuacionsegundogrado():
 		#text.insert(END, str(output3) + '\n')
 
     input()
-
+#Esta función despliega una ventana de dialogo para especificar la ruta para guardar el archivo, a la vez que pide el nombre y escribe el archivo
 def file_save():
     f = filedialog.asksaveasfile(mode='w', defaultextension=".txt")
-    if f is None: # asksaveasfile return `None` if dialog closed with "cancel".
+    if f is None:
         return
-    text2save = str(text.get(1.0, END)) # starts from `1.0`, not `0.0`
+    text2save = str(text.get(1.0, END))
     f.write(text2save)
     f.close() # `()` was missing.
-
+#Esta función despliega una ventana de dialogo para especificar la ruta para abrir el archivo, ya especificado lee y escribe en el area de texto
 def open_file():
 	f = filedialog.askopenfilename()
 	file = open(f, "r")
@@ -363,7 +379,7 @@ def open_file():
 		text.insert(END, linea)
 	file.close()
 
-#####MENU's INIT###########################################
+#####INICIALIZACIÓN DEL MENU Y SUS DERIVADOS###########################################
 button = Button(ventana, text='Go', command = go)
 text = Text(ventana)
 barra=Menu(ventana)
@@ -375,7 +391,7 @@ menuecuaciones=Menu(barra)
 menurecta=Menu(barra)
 menufracciones=Menu(barra)
 menuguardar=Menu(barra)
-######LABEL CONVERSOR#######################################
+######INSTANCIA DE LOS LABEL DE CONVERCIÓN DE BASE#######################################
 submenu.add_command(label="MAYA",command=MA)
 submenu.add_command(label="BIN",command=BIN)
 submenu.add_command(label="HEX",command=HEX)
@@ -400,13 +416,13 @@ barra.add_cascade(label="FRACCIONES",menu=menufracciones)
 barra.add_cascade(label="ECUACIONES",menu=menuecuaciones)
 barra.add_cascade(label="ECUACIONES DE LA RECTA",menu=menurecta)
 barra.add_cascade(label="ARCHIVO",menu=menuguardar)
-######BAR & WINDOW INSTACE##################################
+######INSTANCIA DE LA VENTANA PRINCIPAL, BOTÓN PRIMARIO,TEXTOS Y AREA DE SALIDA DE TEXTO##################################
 ventana.config(menu=barra)
 label.pack(side=TOP)
 entry.pack(side=TOP)
 button.pack(side=TOP)
 text.pack(side= TOP)
-######CONSTANTS##################################################
+########################################################
 text.insert(END, "Resultados : " + '\n')
 messagebox.showinfo("WELCOME USER",(str(env_user)))
 ventana.mainloop()
